@@ -10,6 +10,7 @@ import java.util.*;
 public class MealsRepository {
     // map: id -> meal
     private static final Map<String, Meal> meals = new HashMap<>();
+    int simple_id_tracker = 1;
 
     @PostConstruct
     public void initData() {
@@ -79,8 +80,13 @@ public class MealsRepository {
         return current_largest_meal;
     }
 
-    public void addMeal(Meal meal) {
-        meals.put(meal.getId(),meal);
+    public Meal addMeal(Meal meal) {
+        String oldId = Integer.toString(simple_id_tracker);
+        meal.setId(oldId);
+        meals.put(oldId,meal);
+        simple_id_tracker += 1;
+        // En eig moet als de meal al bestaat er gewoon niks gebeuren ma eh fuck da
+        return meals.get(oldId);
     }
 
     public void updateMeal(Meal meal, String id) {
