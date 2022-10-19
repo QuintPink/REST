@@ -54,4 +54,42 @@ public class MealsRepository {
     public Collection<Meal> getAllMeal() {
         return meals.values();
     }
+
+    public Meal getCheapestMeal() {
+        Meal current_lowest_meal = new Meal();
+        double current_lowest_price = 0;
+        for (Meal meal: meals.values()) {
+            if (meal.getPrice() < current_lowest_price) {
+                current_lowest_meal = meal;
+                current_lowest_price = meal.getPrice();
+            }
+        }
+        return current_lowest_meal;
+    }
+
+    public Meal getLargestMeal() {
+        Meal current_largest_meal = new Meal();
+        int current_highest_kcal = 0;
+        for (Meal meal: meals.values()) {
+            if (meal.getKcal() > current_highest_kcal) {
+                current_largest_meal = meal;
+                current_highest_kcal = meal.getKcal();
+            }
+        }
+        return current_largest_meal;
+    }
+
+    public void addMeal(Meal meal) {
+        meals.put(meal.getId(),meal);
+    }
+
+    public void updateMeal(Meal meal, String id) {
+        meals.put(id,meal);
+
+    }
+
+    public Meal deleteMeal(String id) {
+        return meals.remove(id);
+    }
+
 }

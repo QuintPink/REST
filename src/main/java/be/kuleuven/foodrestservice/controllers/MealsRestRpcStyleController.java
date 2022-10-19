@@ -31,4 +31,21 @@ public class MealsRestRpcStyleController {
         return mealsRepository.getAllMeal();
     }
 
+    @PostMapping("/restrpc/meals/")
+     Meal addMeal(@RequestBody Meal meal) {
+        mealsRepository.addMeal(meal);
+        return meal;
+    }
+
+    @PutMapping("/restrpc/meals/{id}")
+    Meal updateMeal(@PathVariable String id, @RequestBody Meal meal) {
+        mealsRepository.updateMeal(meal,id);
+        return meal;
+    }
+
+    @DeleteMapping("/restrpc/meals/{id}")
+    Meal delete(@PathVariable String id) {
+        return mealsRepository.deleteMeal(id);
+    }
+
 }

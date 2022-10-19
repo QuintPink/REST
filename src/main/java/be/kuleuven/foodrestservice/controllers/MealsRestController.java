@@ -48,4 +48,21 @@ public class MealsRestController {
                 linkTo(methodOn(MealsRestController.class).getMeals()).withRel("rest/meals"));
     }
 
+    @PostMapping("/restrpc/meals/")
+    EntityModel<Meal> addMeal(@RequestBody Meal meal) {
+        mealsRepository.addMeal(meal);
+        return mealToEntityModel(meal.getId(),meal);
+    }
+
+    @PutMapping("/restrpc/meals/{id}")
+    EntityModel<Meal> updateMeal(@PathVariable String id, @RequestBody Meal meal) {
+        mealsRepository.updateMeal(meal,id);
+        return mealToEntityModel(id,meal);
+    }
+
+    @DeleteMapping("/restrpc/meals/{id}")
+    EntityModel<Meal> delete(@PathVariable String id) {
+        return mealToEntityModel(id,mealsRepository.deleteMeal(id));
+    }
+
 }
